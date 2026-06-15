@@ -315,7 +315,7 @@ function shade(hex,a){let c=hex.replace('#','');if(c.length===3)c=c.split('').ma
 
 const IS_TOUCH=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
 let currentScreen='intro',fsTried=false;
-if(IS_TOUCH)document.body.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+if(IS_TOUCH)document.body.addEventListener('touchmove',e=>{if(currentScreen==='game')e.preventDefault();},{passive:false});
 function goFullscreen(){if(fsTried||!IS_TOUCH)return;fsTried=true;const el=document.documentElement,req=el.requestFullscreen||el.webkitRequestFullscreen||el.msRequestFullscreen;if(!req)return;try{const p=req.call(el);if(p&&p.catch)p.catch(()=>{});}catch(e){}}
 document.addEventListener('fullscreenchange',()=>setTimeout(resizeGame,150));
 function getVW(){return window.visualViewport?window.visualViewport.width:window.innerWidth;}
