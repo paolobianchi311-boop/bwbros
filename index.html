@@ -159,45 +159,57 @@ canvas{display:block;border:2px solid #FF6B00;box-shadow:0 0 40px rgba(255,107,0
 .lb-card button{width:100%;margin-top:8px;padding:14px;border:none;border-radius:10px;background:linear-gradient(135deg,#FF6B00,#c84d00);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,4.5vw,22px);letter-spacing:2px;cursor:pointer}
 #lbClear{background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);font-size:clamp(12px,3.2vw,14px)}
 /* === MEJORAS MÓVIL === */
-body.mobileUI #scaleWrap{position:static!important;transform:none!important;left:0!important;top:0!important;width:100vw}
-@media(max-width:760px) and (orientation:portrait){
- body.mobileUI #introScreen{width:100vw;min-height:100dvh;display:flex;flex-direction:column}
- body.mobileUI #introCanvas{position:absolute;inset:0;width:100%!important;height:100%!important;z-index:0}
- body.mobileUI .intro-content{position:relative;z-index:1;padding:22px 16px 50px;justify-content:flex-start;overflow-y:auto;inset:auto}
- body.mobileUI .intro-logo-box{width:108px;height:108px}
- body.mobileUI .intro-logo-box img{width:62px;height:62px}
- body.mobileUI .intro-logo-box .lb-txt{font-size:20px}
- body.mobileUI .intro-title{font-size:34px;letter-spacing:3px;margin-top:12px}
- body.mobileUI .intro-tagline{font-size:11px;letter-spacing:2.5px}
- body.mobileUI .intro-divider{width:80%}
- body.mobileUI .intro-synopsis{width:100%;padding:14px 16px}
- body.mobileUI .intro-synopsis .syn-lead{font-size:17px}
- body.mobileUI .intro-synopsis p{font-size:13px;line-height:1.6}
- body.mobileUI .intro-synopsis .syn-cta{font-size:13px}
- body.mobileUI .intro-feats{flex-wrap:wrap;justify-content:center;gap:8px}
- body.mobileUI .intro-feat{min-width:84px;flex:1 1 84px;padding:8px}
- body.mobileUI .intro-feat .fi{font-size:18px}
- body.mobileUI .intro-feat span{font-size:8.5px}
- body.mobileUI .intro-press{font-size:21px;letter-spacing:4px;margin-top:16px}
- body.mobileUI .intro-footer{font-size:8.5px;margin-top:10px}
- body.mobileUI #selScreen{width:100vw;min-height:100dvh;border:none}
- body.mobileUI .sel-header{padding:12px 14px;gap:10px;flex-wrap:wrap}
- body.mobileUI .sel-logo-box{width:52px;height:52px}
- body.mobileUI .sel-logo-box img{width:32px;height:32px}
- body.mobileUI .sel-logo-box .lb-txt{font-size:13px}
- body.mobileUI .sel-header-text h1{font-size:23px;letter-spacing:1.5px}
- body.mobileUI .sel-header-text h2{font-size:9.5px;letter-spacing:1.5px}
- body.mobileUI .sel-header-text p{font-size:8.5px;letter-spacing:1px}
- body.mobileUI .sel-body{padding:12px 12px 24px}
- body.mobileUI .char-grid{gap:10px}
- body.mobileUI .char-card{flex:1 1 calc(50% - 10px);min-width:0;padding:12px 8px}
- body.mobileUI .char-card canvas{width:74px!important;height:62px!important}
- body.mobileUI .c-name{font-size:14px}
- body.mobileUI .c-stat{font-size:10.5px}
- body.mobileUI .sel-footer{flex-wrap:wrap;gap:10px}
- body.mobileUI .play-btn{font-size:23px;padding:15px 0}
- body.mobileUI .sel-foot-txt{display:none}
+/* === RESPONSIVE INTRO + SELECCIÓN (celular y tablet · ambas orientaciones) === */
+body.mobileUI{overflow:auto;-webkit-overflow-scrolling:touch}
+body.mobileUI #scaleWrap{position:static!important;transform:none!important;left:0!important;top:0!important;width:100%}
+body.mobileUI #introScreen{width:100%;min-height:100dvh}
+body.mobileUI #introCanvas{position:fixed;inset:0;width:100vw!important;height:100dvh!important;z-index:0;object-fit:cover}
+body.mobileUI .intro-content{position:relative;z-index:1;inset:auto;min-height:100dvh;justify-content:center;padding:clamp(16px,4vw,42px) clamp(14px,4vw,42px) clamp(40px,8vh,80px);gap:clamp(5px,1.3vh,14px)}
+body.mobileUI .intro-logo-box{width:clamp(80px,17vw,150px);height:clamp(80px,17vw,150px)}
+body.mobileUI .intro-logo-box img{width:60%;height:60%}
+body.mobileUI .intro-logo-box .lb-txt{font-size:clamp(15px,3vw,28px)}
+body.mobileUI .intro-title{font-size:clamp(28px,8vw,58px);letter-spacing:clamp(2px,1vw,7px);margin-top:clamp(8px,1.5vh,14px)}
+body.mobileUI .intro-tagline{font-size:clamp(10px,2.6vw,13px);letter-spacing:clamp(2px,.9vw,6px)}
+body.mobileUI .intro-divider{width:min(420px,82%);margin:clamp(8px,1.5vh,15px) auto}
+body.mobileUI .intro-synopsis{width:min(820px,94%);padding:clamp(12px,2.4vw,22px)}
+body.mobileUI .intro-synopsis .syn-lead{font-size:clamp(15px,4vw,22px)}
+body.mobileUI .intro-synopsis p{font-size:clamp(12px,3.2vw,15px);line-height:1.55}
+body.mobileUI .intro-synopsis .syn-cta{font-size:clamp(12px,3.2vw,15px)}
+body.mobileUI .intro-feats{flex-wrap:wrap;justify-content:center;gap:clamp(6px,1.6vw,14px)}
+body.mobileUI .intro-feat{min-width:0;flex:1 1 clamp(72px,18vw,130px);max-width:140px;padding:clamp(7px,1.4vw,12px)}
+body.mobileUI .intro-feat .fi{font-size:clamp(16px,4vw,22px)}
+body.mobileUI .intro-feat span{font-size:clamp(8px,2vw,10px)}
+body.mobileUI .intro-press{font-size:clamp(18px,5vw,26px);letter-spacing:clamp(3px,1.2vw,7px);margin-top:clamp(10px,2vh,18px)}
+body.mobileUI .intro-footer{font-size:clamp(8px,2vw,10px)}
+@media (orientation:landscape) and (max-height:560px){
+body.mobileUI .intro-content{justify-content:flex-start;padding-top:12px;gap:6px}
+body.mobileUI .intro-title{font-size:clamp(22px,6vw,38px)}
+body.mobileUI .intro-logo-box{width:64px;height:64px}
+body.mobileUI .intro-synopsis{width:min(760px,94%);padding:9px 16px}
+body.mobileUI .intro-synopsis p{font-size:11.5px;line-height:1.4}
+body.mobileUI .intro-synopsis p br{display:none}
+body.mobileUI .intro-press{margin-top:8px}
 }
+body.mobileUI #selScreen{width:100%;min-height:100dvh;border:none}
+body.mobileUI .sel-header{padding:clamp(10px,2.4vw,18px);gap:clamp(8px,2vw,14px);flex-wrap:wrap;align-items:center}
+body.mobileUI .sel-logo-box{width:clamp(44px,9vw,78px);height:clamp(44px,9vw,78px)}
+body.mobileUI .sel-logo-box img{width:62%;height:62%}
+body.mobileUI .sel-logo-box .lb-txt{font-size:clamp(11px,2.4vw,17px)}
+body.mobileUI .sel-header-text h1{font-size:clamp(19px,5vw,38px);letter-spacing:clamp(1px,.6vw,4px)}
+body.mobileUI .sel-header-text h2{font-size:clamp(9px,2.2vw,12px);letter-spacing:clamp(1px,.5vw,4px)}
+body.mobileUI .sel-header-text p{font-size:clamp(8px,2vw,9.5px)}
+body.mobileUI .sel-body{padding:clamp(10px,2.4vw,18px)}
+body.mobileUI .char-grid{gap:clamp(8px,2vw,14px)}
+body.mobileUI .char-card{flex:1 1 calc(50% - 12px);min-width:0;padding:clamp(10px,2vw,16px) clamp(6px,1.5vw,12px)}
+body.mobileUI .char-card canvas{width:clamp(64px,15vw,100px)!important;height:auto!important;aspect-ratio:6/5}
+body.mobileUI .c-flag{font-size:clamp(22px,6vw,32px)}
+body.mobileUI .c-name{font-size:clamp(12px,3.2vw,16px)}
+body.mobileUI .c-stat{font-size:clamp(9.5px,2.6vw,12px)}
+body.mobileUI .sel-footer{flex-wrap:wrap;gap:clamp(8px,2vw,16px)}
+body.mobileUI .play-btn{font-size:clamp(20px,5vw,28px);padding:clamp(13px,2.6vw,16px) 0}
+body.mobileUI .sel-foot-txt{display:none}
+@media (min-width:560px){ body.mobileUI .char-card{flex:1 1 calc(33.33% - 12px)} }
+@media (min-width:820px){ body.mobileUI .char-card{flex:1 1 calc(25% - 14px)} }
 </style>
 </head>
 <body>
@@ -323,24 +335,23 @@ function getVH(){return window.visualViewport?window.visualViewport.height:windo
 const SCREEN_H={intro:700,select:600,game:542};
 function getContentH(){if(currentScreen==='game')return SCREEN_H.game;if(currentScreen==='select'){const el=document.getElementById('selScreen');const h=el?el.offsetHeight:0;return h>200?h:SCREEN_H.select;}return SCREEN_H.intro;}
 function resizeGame(){
-  const vw=getVW(), vh=getVH();
-  const wrap=document.getElementById('scaleWrap');
-  if(vw<760 && vh>vw && currentScreen!=='game'){
-    document.body.classList.add('mobileUI');
-    wrap.style.transform='none';wrap.style.left='0px';wrap.style.top='0px';
-    return;
-  }
-  document.body.classList.remove('mobileUI');
-  const gW=1100, gH=getContentH();
-  const scale = Math.min(vw/gW, vh/gH);
-  const sW = gW * scale, sH = gH * scale;
-  const lo = Math.max(0, (vw - sW) / 2);
-  let to = Math.max(0, (vh - sH) / 2);
-  const isPortrait = vh > vw;
-  if(isPortrait && currentScreen === 'game') { to = Math.max(10, vh * 0.05); }
-  wrap.style.transform=`scale(${scale})`;
-  wrap.style.left=lo+'px';
-  wrap.style.top=to+'px';
+ const vw=getVW(), vh=getVH();
+ const wrap=document.getElementById('scaleWrap');
+ if(currentScreen!=='game' && vw<1024){
+   document.body.classList.add('mobileUI');
+   document.documentElement.style.overflow='auto';document.body.style.overflow='auto';
+   wrap.style.transform='none';wrap.style.left='0px';wrap.style.top='0px';
+   return;
+ }
+ document.body.classList.remove('mobileUI');
+ document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';
+ const gW=1100, gH=getContentH();
+ const scale=Math.min(vw/gW, vh/gH);
+ const sW=gW*scale, sH=gH*scale;
+ const lo=Math.max(0,(vw-sW)/2);
+ let to=Math.max(0,(vh-sH)/2);
+ if(vh>vw && currentScreen==='game'){ to=Math.max(10, vh*0.05); }
+ wrap.style.transform=`scale(${scale})`;wrap.style.left=lo+'px';wrap.style.top=to+'px';
 }
 window.addEventListener('resize',resizeGame);
 window.addEventListener('orientationchange',()=>setTimeout(resizeGame,250));
