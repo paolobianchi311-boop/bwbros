@@ -643,7 +643,19 @@ document.getElementById('btnBackIntro').addEventListener('click',goToIntro);
 document.querySelector('.hud-brand').addEventListener('click',()=>{if(document.getElementById('gameWrap').style.display==='block')goToSelect();});
 document.getElementById('muteBtn').addEventListener('click',()=>A.toggleMute());
 document.getElementById('pauseBtn').addEventListener('click',togglePause);
-async function renderLB(){   const el=document.getElementById('lbList');   el.innerHTML='<div class="lb-empty">⏳ Cargando ranking global…</div>';   const data=await fetchGlobalLB();   const isGlobal=!!data;   const lb=(data||getLB()).slice(0,10);   if(!lb.length){ el.innerHTML='<div class="lb-empty">Aún no hay socazones registradas.<br>¡Jugá para aparecer aquí! 🦬</div>'; return; }   const head='<div style="text-align:center;font-size:11px;letter-spacing:2px;margin-bottom:8px;color:'+(isGlobal?'#2ecc71':'rgba(255,255,255,.4)')+'">'+(isGlobal?'🌐 RANKING GLOBAL · EN VIVO':'📱 RÉCORDS LOCALES (sin conexión)')+'</div>';   el.innerHTML=head+lb.map((r,i)=>{     const m=['🥇','🥈','🥉'][i]||(i+1)+'.', e=r.ev||{};     return '<div class="lb-row"><span class="rk">'+m+'</span><span class="nm">'+r.f+' '+r.n+(r.l?' · N'+r.l:'')+'</span><span class="pt">'+(+r.s).toLocaleString('es')+'</span><div class="evts">⚽'+(e.poste||0)+' 🟥'+(e.roja||0)+' 🥅'+(e.penal||0)+'</div></div>';   }).join(''); }
+async function renderLB(){
+  const el=document.getElementById('lbList');
+  el.innerHTML='<div class="lb-empty">⏳ Cargando ranking global…</div>';
+  const data=await fetchGlobalLB();
+  const isGlobal=!!data;
+  const lb=(data||getLB()).slice(0,10);
+  if(!lb.length){ el.innerHTML='<div class="lb-empty">Aún no hay socazones registradas.<br>¡Jugá para aparecer aquí! 🦬</div>'; return; }
+  const head='<div style="text-align:center;font-size:11px;letter-spacing:2px;margin-bottom:8px;color:'+(isGlobal?'#2ecc71':'rgba(255,255,255,.4)')+'">'+(isGlobal?'🌐 RANKING GLOBAL · EN VIVO':'📱 RÉCORDS LOCALES (sin conexión)')+'</div>';
+  el.innerHTML=head+lb.map((r,i)=>{
+    const m=['🥇','🥈','🥉'][i]||(i+1)+'.', e=r.ev||{};
+    return '<div class="lb-row"><span class="rk">'+m+'</span><span class="nm">'+r.f+' '+r.n+(r.l?' · N'+r.l:'')+'</span><span class="pt">'+(+r.s).toLocaleString('es')+'</span><div class="evts">⚽'+(e.poste||0)+' 🟥'+(e.roja||0)+' 🥅'+(e.penal||0)+'</div></div>';
+  }).join('');
+}
 document.getElementById('btnLB').addEventListener('click',()=>{renderLB();document.getElementById('lbModal').classList.add('show');});
 document.getElementById('lbClose').addEventListener('click',()=>document.getElementById('lbModal').classList.remove('show'));
 document.getElementById('lbClear').addEventListener('click',()=>{if(confirm('¿Borrar el leaderboard?')){localStorage.removeItem('socaLB');renderLB();}});
