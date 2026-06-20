@@ -1,0 +1,128 @@
+<html lang="es"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin · Buffalo Wings®</title>
+<link rel="icon" href="https://gobuff.com/sv/favicon.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Bebas+Neue&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Oswald',sans-serif;background:radial-gradient(circle at 50% 0%,#2a0606,#0a0000);min-height:100vh;color:#fff;padding:16px}
+.wrap{max-width:1000px;margin:0 auto}
+.head{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7B1A1A,#a02020);padding:16px 18px;border-radius:14px;margin-bottom:18px}
+.head img{width:46px;height:46px;border-radius:8px;border:2px solid rgba(255,255,255,.3)}
+.head h1{font-family:'Bebas Neue';font-size:26px;letter-spacing:2px;line-height:1}
+.head p{font-size:11px;color:rgba(255,200,100,.85);letter-spacing:2px}
+.login{max-width:380px;margin:60px auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,107,0,.3);border-radius:14px;padding:26px;text-align:center}
+.login h2{font-family:'Bebas Neue';color:#FF6B00;font-size:24px;letter-spacing:2px;margin-bottom:16px}
+.login input{width:100%;padding:14px;border-radius:10px;border:2px solid rgba(255,107,0,.4);background:rgba(0,0,0,.5);color:#fff;font-size:16px;text-align:center;letter-spacing:4px;outline:none}
+.login input:focus{border-color:#FF6B00}
+.login .err{color:#ff7a5c;font-size:13px;min-height:16px;margin-top:8px}
+button{cursor:pointer;border:none;font-family:'Bebas Neue';letter-spacing:2px;color:#fff;border-radius:10px}
+.btn-main{width:100%;margin-top:14px;padding:14px;font-size:20px;background:linear-gradient(135deg,#FF6B00,#c84d00)}
+.panel{display:none}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat{background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.28);border-radius:12px;padding:14px 8px;text-align:center}
+.stat b{display:block;font-family:'Bebas Neue';font-size:30px;color:#FF6B00;line-height:1}
+.stat span{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:1px}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.tools button{flex:1;min-width:150px;padding:13px;font-size:16px}
+.b-csv{background:linear-gradient(135deg,#1e8449,#27ae60)}
+.b-emails{background:linear-gradient(135deg,#2471a3,#3498db)}
+.b-refresh{background:rgba(255,255,255,.1)}
+.b-logout{background:rgba(255,255,255,.07);flex:0 0 auto;min-width:auto;padding:13px 16px}
+.tablewrap{background:rgba(0,0,0,.3);border:1px solid rgba(255,107,0,.2);border-radius:12px;overflow:auto;max-height:60vh}
+table{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}
+th{background:#7B1A1A;color:#fff;padding:10px 12px;text-align:left;position:sticky;top:0;font-weight:600;letter-spacing:1px}
+td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
+tr:hover td{background:rgba(255,107,0,.06)}
+.tag{padding:2px 8px;border-radius:5px;font-size:11px;font-weight:600}
+.tag.si{background:rgba(46,204,113,.2);color:#2ecc71}
+.tag.no{background:rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
+.empty{text-align:center;padding:40px;color:rgba(255,255,255,.4)}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}}
+</style></head><body>
+<div class="wrap">
+  <div class="head">
+    <img src="https://gobuff.com/sv/favicon.png" onerror="this.src='https://gobuff.com/favicon.png'">
+    <div><h1>BUFFALO WINGS® · ADMIN</h1><p>BASE DE DATOS · SOCAZONE 2026</p></div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="login" id="login">
+    <h2>🔒 ACCESO ADMINISTRADOR</h2>
+    <input id="key" type="password" placeholder="CLAVE" autocomplete="off">
+    <div class="err" id="err"></div>
+    <button class="btn-main" id="enter">▶ INGRESAR</button>
+  </div>
+
+  <!-- PANEL -->
+  <div class="panel" id="panel">
+    <div class="stats">
+      <div class="stat"><b id="stTotal">0</b><span>REGISTROS</span></div>
+      <div class="stat"><b id="stEmails">0</b><span>EMAILS ÚNICOS</span></div>
+      <div class="stat"><b id="stRedeemed">0</b><span>CANJEADOS</span></div>
+      <div class="stat"><b id="stPend">0</b><span>PENDIENTES</span></div>
+    </div>
+    <div class="tools">
+      <button class="b-csv" id="dlCsv">📥 DESCARGAR CSV COMPLETO</button>
+      <button class="b-emails" id="dlEmails">📧 SOLO EMAILS</button>
+      <button class="b-refresh" id="refresh">🔄 ACTUALIZAR</button>
+      <button class="b-logout" id="logout">SALIR</button>
+    </div>
+    <div class="tablewrap" id="tablewrap"></div>
+  </div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let KEY=sessionStorage.getItem('bw_admin_key')||'';
+
+async function loadData(){
+  $('tablewrap').innerHTML='<div class="empty">⏳ Cargando…</div>';
+  try{
+    const r=await fetch('/api/export?format=json&key='+encodeURIComponent(KEY));
+    if(r.status===401){ logout('Clave incorrecta'); return; }
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    showPanel(d);
+  }catch(e){ $('tablewrap').innerHTML='<div class="empty">⚠️ Error al cargar: '+e.message+'</div>'; }
+}
+
+function showPanel(d){
+  $('login').style.display='none';
+  $('panel').style.display='block';
+  $('stTotal').textContent=d.total;
+  $('stEmails').textContent=d.uniqueEmails;
+  $('stRedeemed').textContent=d.redeemed;
+  $('stPend').textContent=d.total-d.redeemed;
+  const esc=s=>(s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+  if(!d.records.length){ $('tablewrap').innerHTML='<div class="empty">Aún no hay registros. 🦬</div>'; return; }
+  let html='<table><thead><tr><th>Fecha</th><th>Email</th><th>Equipo</th><th>Puntos</th><th>Monedas</th><th>⚽🟥🥅🤝</th><th>Canjeado</th></tr></thead><tbody>';
+  d.records.forEach(r=>{
+    const e=r.events||{};
+    html+='<tr><td>'+esc((r.date||'').slice(0,10))+'</td><td>'+esc(r.email||'—')+'</td><td>'+esc(r.team||'—')+'</td><td><b style="color:#FF6B00">'+(+r.score||0).toLocaleString('es')+'</b></td><td>'+(r.coins||0)+'</td><td style="font-size:12px">⚽'+(e.poste||0)+' 🟥'+(e.roja||0)+' 🥅'+(e.penal||0)+' 🤝'+(e.empate||0)+'</td><td>'+(r.redeemed?'<span class="tag si">SÍ</span>':'<span class="tag no">NO</span>')+'</td></tr>';
+  });
+  html+='</tbody></table>';
+  $('tablewrap').innerHTML=html;
+}
+
+function logout(msg){
+  sessionStorage.removeItem('bw_admin_key'); KEY='';
+  $('panel').style.display='none'; $('login').style.display='block';
+  $('key').value=''; $('err').textContent=msg||'';
+}
+
+$('enter').onclick=()=>{
+  KEY=$('key').value.trim();
+  if(!KEY){ $('err').textContent='Ingresá la clave'; return; }
+  sessionStorage.setItem('bw_admin_key',KEY);
+  $('err').textContent=''; loadData();
+};
+$('key').addEventListener('keydown',e=>{ if(e.key==='Enter')$('enter').click(); });
+$('refresh').onclick=loadData;
+$('logout').onclick=()=>logout('');
+$('dlCsv').onclick=()=>location.href='/api/export?key='+encodeURIComponent(KEY);
+$('dlEmails').onclick=()=>location.href='/api/export?emails=1&key='+encodeURIComponent(KEY);
+
+// Auto-login si ya había clave en la sesión
+if(KEY) loadData();
+</script>
+</body></html>
