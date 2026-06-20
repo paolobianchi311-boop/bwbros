@@ -430,8 +430,25 @@ const CHARS=[
 {id:'uru',name:'URUGUAY',flag:'🇺🇾',j:'#4aade0',sh:'#1a1a1a',st:'#ffffff',sk:'#d4a76a',hr:'#1a0a00',stat:'🦷 Garra (+30% Ínsula)',spd:4.0,jp:15.0,wm:1,startInsula:30,pips:[[3,'VEL'],[4,'SALT'],[4,'POD']]},
 {id:'ned',name:'PAÍSES BAJOS',flag:'🇳🇱',j:'#FF6B00',sh:'#1a1a1a',st:'#ffffff',sk:'#e8b890',hr:'#e8a030',stat:'🌷 Salto naranja',spd:4.3,jp:16.0,wm:1,pips:[[3,'VEL'],[5,'SALT'],[2,'POD']]}
 ];
-let SEL=CHARS[0];  /* ===== RANKING GLOBAL (lee de la API /api/score) ===== */ const TEAM_FLAG={};CHARS.forEach(c=>TEAM_FLAG[c.name]=c.flag); function flagFor(t){return TEAM_FLAG[(t||'').toUpperCase().trim()]||'🦬';} let globalLB=null;            // null = no cargado / sin conexión async function fetchGlobalLB(){   try{     const r=await fetch('/api/score');           // GET sin id => top 50 global     if(!r.ok)throw 0;     const data=await r.json();     globalLB=(Array.isArray(data)?data:[]).map(rec=>({       n:rec.team||'SOCAZONE', f:flagFor(rec.team), s:+rec.score||0,       c:+rec.coins||0, ev:rec.events||{}     }));   }catch(e){ globalLB=null; }   return globalLB; } function bestLB(){ return (globalLB&&globalLB.length)?globalLB:getLB(); }
+let SEL=CHARS[0];
 
+/* ===== RANKING GLOBAL (lee de la API /api/score) ===== */
+const TEAM_FLAG={};CHARS.forEach(c=>TEAM_FLAG[c.name]=c.flag);
+function flagFor(t){return TEAM_FLAG[(t||'').toUpperCase().trim()]||'🦬';}
+let globalLB=null;
+async function fetchGlobalLB(){
+  try{
+    const r=await fetch('/api/score');
+    if(!r.ok)throw 0;
+    const data=await r.json();
+    globalLB=(Array.isArray(data)?data:[]).map(rec=>({
+      n:rec.team||'SOCAZONE', f:flagFor(rec.team), s:+rec.score||0,
+      c:+rec.coins||0, ev:rec.events||{}
+    }));
+  }catch(e){ globalLB=null; }
+  return globalLB;
+}
+function bestLB(){ return (globalLB&&globalLB.length)?globalLB:getLB(); }
 const CV=document.getElementById('c'),X=CV.getContext('2d');
 const W=1100,H=480,GY=436,GRAVITY=.62,LW=4608;
 (()=>{const r=2;CV.width=W*r;CV.height=H*r;CV.style.width=W+'px';CV.style.height=H+'px';X.scale(r,r);X.imageSmoothingEnabled=true;})();
