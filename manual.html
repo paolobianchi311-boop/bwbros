@@ -1,0 +1,263 @@
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual · Socazone Buffalo Bros</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Oswald',sans-serif;color:#2a1208;background:#f4f1ec;line-height:1.6}
+.page{max-width:900px;margin:0 auto;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+/* ===== PORTADA ===== */
+.cover{background:linear-gradient(160deg,#0d0300,#2a0a00 55%,#7B1A1A);color:#fff;padding:60px 50px 50px;text-align:center;position:relative;overflow:hidden}
+.cover::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 20%,rgba(255,107,0,.25),transparent 60%)}
+.cover>*{position:relative;z-index:1}
+.cover .kicker{font-size:13px;letter-spacing:6px;color:#FFB347;margin-bottom:20px}
+.cover h1{font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:4px;line-height:.95;color:#FF6B00;text-shadow:0 0 40px rgba(255,107,0,.6)}
+.cover .sub{font-size:16px;letter-spacing:3px;color:rgba(255,210,150,.9);margin-top:10px}
+.cover .cta{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-top:24px}
+.cover .url{display:inline-block;margin-top:8px;background:#FF6B00;color:#1a0500;font-weight:700;padding:8px 22px;border-radius:30px;letter-spacing:1px;font-size:15px}
+/* ===== SECCIONES ===== */
+.section{padding:46px 50px;border-bottom:1px solid #eee}
+.section h2{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;color:#7B1A1A;margin-bottom:6px;display:flex;align-items:center;gap:12px}
+.section h2 .num{background:#FF6B00;color:#fff;width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.section .lead{color:#6b4a38;font-size:16px;margin:6px 0 22px;padding-left:54px}
+ul.feat{list-style:none;display:grid;gap:12px}
+ul.feat li{background:#fff7f0;border-left:4px solid #FF6B00;border-radius:8px;padding:13px 16px;font-size:15px}
+ul.feat li b{color:#7B1A1A}
+.steps{counter-reset:s;display:grid;gap:14px;margin-top:10px}
+.step{display:flex;gap:16px;align-items:flex-start;background:#faf6f1;border-radius:10px;padding:16px 18px}
+.step .sn{counter-increment:s;background:#7B1A1A;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step .sn::before{content:counter(s)}
+.step .stx{font-size:15px}.step .stx b{color:#7B1A1A}
+.note{background:#fff3e0;border:1px dashed #FF6B00;border-radius:10px;padding:14px 18px;font-size:14px;color:#7a4a20;margin-top:18px}
+.note b{color:#7B1A1A}
+.social{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.social span{background:#FF6B00;color:#1a0500;font-weight:600;font-size:13px;padding:7px 14px;border-radius:8px}
+/* ===== CAPTURAS FLEXIBLES (1, 2 o 3) ===== */
+.shots{display:grid;gap:18px;margin-top:18px}
+.shots.one{grid-template-columns:1fr}
+.shots.two{grid-template-columns:1fr 1fr}
+.shots.three{grid-template-columns:1fr 1fr 1fr}
+.shot-item{display:flex;flex-direction:column}
+.shot-item img{width:100%;border-radius:12px;border:2px solid #f0e6dc;box-shadow:0 6px 20px rgba(0,0,0,.18);display:block;background:#0d0300}
+.shot-ph{width:100%;aspect-ratio:16/10;border:2px dashed #c9a98f;border-radius:12px;background:#faf3ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#9c7a5f;text-align:center;padding:16px}
+.shots.one .shot-ph{aspect-ratio:16/8}
+.shot-ph .ico{font-size:34px}
+.shot-ph .t{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:#7B1A1A}
+.shot-ph .f{font-size:11px;background:#7B1A1A;color:#fff;padding:3px 9px;border-radius:6px;letter-spacing:.5px}
+.shot-cap{font-size:12.5px;color:#7a5640;text-align:center;margin-top:8px;letter-spacing:.5px}
+.shot-cap b{color:#7B1A1A}
+/* ===== TARJETAS ===== */
+.card-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px}
+.card{background:linear-gradient(160deg,#fff,#fdf5ee);border:1px solid #f0ddcc;border-radius:14px;padding:22px}
+.card h3{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#FF6B00;letter-spacing:1px;margin-bottom:10px}
+.card p{font-size:14.5px;color:#5a3d2c;margin-bottom:8px}
+.tag{display:inline-block;background:#7B1A1A;color:#fff;font-size:11px;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+/* ===== INSTRUCTIVO PIN (estados) ===== */
+.statebox{display:grid;gap:12px;margin-top:16px}
+.state{display:flex;gap:14px;align-items:center;border-radius:10px;padding:14px 16px;font-size:14.5px}
+.state .badge{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;padding:5px 12px;border-radius:20px;flex-shrink:0;white-space:nowrap}
+.state.ok{background:#e8f8ec;border:1px solid #2ecc71;color:#1e6b3a}
+.state.ok .badge{background:#2ecc71;color:#fff}
+.state.warn{background:#fff4e5;border:1px solid #e67e22;color:#8a4a10}
+.state.warn .badge{background:#e67e22;color:#fff}
+.state.bad{background:#fdecea;border:1px solid #e74c3c;color:#922}
+.state.bad .badge{background:#e74c3c;color:#fff}
+.pin-visual{display:flex;align-items:center;justify-content:center;gap:10px;background:#f7f7f7;border:2px dashed #c9a98f;border-radius:12px;padding:18px;margin-top:16px}
+.pin-visual .dot{width:18px;height:24px;border:2px solid #7B1A1A;border-radius:6px;display:inline-block}
+.pin-visual .lbl{font-size:12px;color:#888;letter-spacing:2px;text-transform:uppercase;margin-right:6px}
+/* ===== OGILVY ===== */
+.ogilvy{background:linear-gradient(160deg,#0d0300,#1a0700);color:#fff;padding:46px 50px}
+.ogilvy h2{color:#FF6B00}
+.ogilvy .lead{color:rgba(255,210,150,.85)}
+.ogilvy ul.feat li{background:rgba(255,107,0,.08);color:#f3e3d5;border-left-color:#FF6B00}
+.ogilvy ul.feat li b{color:#FFB347}
+.ogilvy-logo-box{background:#fff;border-radius:12px;padding:22px 30px;max-width:260px;margin:26px auto 0;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.ogilvy-logo-box img{max-width:100%;display:block}
+/* ===== FOOTER ===== */
+.footer{background:#7B1A1A;color:#fff;text-align:center;padding:30px;font-size:13px;letter-spacing:1px}
+.footer .big{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#FFB347;letter-spacing:2px;margin-bottom:6px}
+@media print{
+  body{background:#fff}
+  .page{box-shadow:none;max-width:100%}
+  .section,.ogilvy{break-inside:avoid}
+  .cover{break-after:page}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- PORTADA -->
+  <div class="cover">
+    <div class="kicker">MANUAL DE USO · MUNDIAL 2026</div>
+    <h1>SOCAZONE<br>BUFFALO BROS</h1>
+    <div class="sub">LA SEDE DE LA SOCAZÓN · BUFFALO WINGS®</div>
+    <div class="shots one" style="max-width:560px;margin:34px auto 0">
+      <div class="shot-item">
+        <img src="captura-juego.png" alt="Socazone Buffalo Bros" onerror="this.outerHTML='&lt;div class=\'shot-ph\'&gt;&lt;div class=\'ico\'&gt;🎮&lt;/div&gt;&lt;div class=\'t\'&gt;CAPTURA DEL JUEGO&lt;/div&gt;&lt;div class=\'f\'&gt;captura-juego.png&lt;/div&gt;&lt;/div&gt;'">
+      </div>
+    </div>
+    <div class="cta">¡JUGÁ, SOCÁ Y GANÁ!</div>
+    <div class="url">bwbros.netlify.app</div>
+  </div>
+
+  <!-- 1. QUÉ ES -->
+  <div class="section">
+    <h2><span class="num">1</span> ¿QUÉ ES ESTE JUEGO?</h2>
+    <p class="lead">Un videojuego web estilo plataforma, con la identidad de Buffalo Wings, para activar la campaña <b>"La Sede de la Socazón"</b> durante el Mundial 2026.</p>
+    <ul class="feat">
+      <li>🎮 <b>Se juega desde el celular o la computadora</b>, sin descargar nada: solo se entra a un enlace.</li>
+      <li>🦬 <b>El jugador elige su selección</b> (11 equipos), corre por 4 niveles, aplasta enemigos, recoge alitas y enfrenta al jefe final: <b>El VAR Supremo</b>.</li>
+      <li>🧠 Todo gira en torno a la <b>Socazón</b> y al personaje <b>Dr. Soca-Son</b>, que conecta de forma divertida el fútbol con las alitas picantes.</li>
+      <li>🏆 Al terminar, el jugador puede <b>generar un QR de canje</b> o <b>registrar su nombre en el ranking</b>.</li>
+    </ul>
+    <div class="shots three">
+      <div class="shot-item">
+        <img src="shot-intro.png" alt="Intro" onerror="this.outerHTML='&lt;div class=\'shot-ph\'&gt;&lt;div class=\'ico\'&gt;▶️&lt;/div&gt;&lt;div class=\'t\'&gt;INTRO&lt;/div&gt;&lt;div class=\'f\'&gt;shot-intro.png&lt;/div&gt;&lt;/div&gt;'">
+        <div class="shot-cap"><b>Pantalla de inicio</b></div>
+      </div>
+      <div class="shot-item">
+        <img src="shot-equipos.png" alt="Selección" onerror="this.outerHTML='&lt;div class=\'shot-ph\'&gt;&lt;div class=\'ico\'&gt;👥&lt;/div&gt;&lt;div class=\'t\'&gt;EQUIPOS&lt;/div&gt;&lt;div class=\'f\'&gt;shot-equipos.png&lt;/div&gt;&lt;/div&gt;'">
+        <div class="shot-cap"><b>Elegí tu selección</b></div>
+      </div>
+      <div class="shot-item">
+        <img src="shot-gameplay.png" alt="Gameplay" onerror="this.outerHTML='&lt;div class=\'shot-ph\'&gt;&lt;div class=\'ico\'&gt;⚽&lt;/div&gt;&lt;div class=\'t\'&gt;GAMEPLAY&lt;/div&gt;&lt;div class=\'f\'&gt;shot-gameplay.png&lt;/div&gt;&lt;/div&gt;'">
+        <div class="shot-cap"><b>En acción</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. QUÉ INCLUYE -->
+  <div class="section">
+    <h2><span class="num">2</span> ¿QUÉ INCLUYE?</h2>
+    <p class="lead">Una experiencia completa de marca, lista para usar.</p>
+    <ul class="feat">
+      <li>⚽ <b>4 niveles</b> con dificultad creciente y un jefe final.</li>
+      <li>👥 <b>11 selecciones</b> jugables, cada una con un poder distinto.</li>
+      <li>🎵 <b>Música y efectos</b> originales según el momento del juego.</li>
+      <li>🧠 <b>Dr. Soca-Son</b> con mensajes de la campaña en intro y entre niveles.</li>
+      <li>🏆 <b>Ranking</b> de mejores puntajes.</li>
+      <li>📷 <b>Sistema de QR de canje</b> integrado.</li>
+    </ul>
+    <div class="shots two">
+      <div class="shot-item">
+        <img src="shot-doctor.png" alt="Dr. Soca-Son" onerror="this.outerHTML='&lt;div class=\'shot-ph\'&gt;&lt;div class=\'ico\'&gt;🧠&lt;/div&gt;&lt;div class=\'t\'&gt;DR. SOCA-SON&lt;/div&gt;&lt;div class=\'f\'&gt;shot-doctor.png&lt;/div&gt;&lt;/div&gt;'">
+        <div class="shot-cap"><b>Dr. Soca-Son</b> presenta la campaña</div>
+      </div>
+      <div class="shot-item">
+        <img src="shot-nivel.png" alt="Fin de nivel" onerror="this.outerHTML='&lt;div class=\'shot-ph\'&gt;&lt;div class=\'ico\'&gt;🏆&lt;/div&gt;&lt;div class=\'t\'&gt;FIN DE NIVEL&lt;/div&gt;&lt;div class=\'f\'&gt;shot-nivel.png&lt;/div&gt;&lt;/div&gt;'">
+        <div class="shot-cap"><b>Resumen</b> al completar un nivel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. COMPARTIR EN REDES -->
+  <div class="section">
+    <h2><span class="num">3</span> CÓMO COMPARTIRLO EN REDES</h2>
+    <p class="lead">El juego vive en un enlace, así que se comparte súper fácil desde las redes de la marca.</p>
+    <div class="steps">
+      <div class="step"><span class="sn"></span><div class="stx"><b>Publicá el enlace</b> bwbros.netlify.app en historias, posts y bio de Instagram, Facebook y TikTok.</div></div>
+      <div class="step"><span class="sn"></span><div class="stx"><b>Usá el "link en bio"</b> o el sticker de enlace en historias para que toquen y jueguen al instante.</div></div>
+      <div class="step"><span class="sn"></span><div class="stx"><b>Sumá un llamado a la acción:</b> "¿Cuántos puntos socás? Jugá y mostranos tu récord."</div></div>
+      <div class="step"><span class="sn"></span><div class="stx"><b>Invitá a competir:</b> el ranking motiva a repetir y a etiquetar amigos.</div></div>
+      <div class="step"><span class="sn"></span><div class="stx"><b>Conectá con la promo:</b> jugando pueden generar su QR para canjear en sucursal.</div></div>
+    </div>
+    <div class="social">
+      <span>📸 Instagram</span><span>👍 Facebook</span><span>🎵 TikTok</span><span>💬 WhatsApp</span><span>🔗 Link en bio</span>
+    </div>
+    <div class="note">💡 <b>Tip:</b> también se puede convertir el enlace en un <b>código QR impreso</b> para mesas, afiches y pantallas dentro de los restaurantes.</div>
+  </div>
+
+  <!-- 4. APP DE CANJE Y ADMIN -->
+  <div class="section">
+    <h2><span class="num">4</span> APP DE CANJE Y ADMIN</h2>
+    <p class="lead">Dos herramientas para conectar el juego con la promoción real en sucursal.</p>
+    <div class="card-row">
+      <div class="card">
+        <span class="tag">PARA EL PERSONAL DE CAJA</span>
+        <h3>📷 App de Canje</h3>
+        <p>El jugador genera su <b>QR de canje</b> al terminar (con sus puntos, monedas, premios y equipo).</p>
+        <p>En caja, el personal abre la <b>App de Canje</b> y toca <b>"📷 Escanear QR"</b>: se abre la cámara y lee el código del cliente.</p>
+        <p>El sistema <b>verifica el ticket en la base de datos</b>, pide un <b>PIN de cajero</b> y permite <b>marcar como canjeado</b> (evitando que se use dos veces).</p>
+      </div>
+      <div class="card">
+        <span class="tag">PARA EL ADMINISTRADOR</span>
+        <h3>⚙️ Panel Admin</h3>
+        <p>Permite <b>ver el ranking global</b> de jugadores, los puntajes y la actividad de la campaña en tiempo real.</p>
+        <p>Da seguimiento a la participación y permite <b>consultar los registros</b> y canjes generados.</p>
+      </div>
+    </div>
+    <div class="shots two">
+      <div class="shot-item">
+        <img src="captura-canje.png" alt="App de Canje" onerror="this.outerHTML='&lt;div class=\'shot-ph\'&gt;&lt;div class=\'ico\'&gt;📷&lt;/div&gt;&lt;div class=\'t\'&gt;APP DE CANJE&lt;/div&gt;&lt;div class=\'f\'&gt;captura-canje.png&lt;/div&gt;&lt;/div&gt;'">
+        <div class="shot-cap"><b>App de Canje</b> · /canje.html</div>
+      </div>
+      <div class="shot-item">
+        <img src="captura-admin.png" alt="Panel Admin" onerror="this.outerHTML='&lt;div class=\'shot-ph\'&gt;&lt;div class=\'ico\'&gt;⚙️&lt;/div&gt;&lt;div class=\'t\'&gt;PANEL ADMIN&lt;/div&gt;&lt;div class=\'f\'&gt;captura-admin.png&lt;/div&gt;&lt;/div&gt;'">
+        <div class="shot-cap"><b>Panel Admin</b> · /admin.html</div>
+      </div>
+    </div>
+    <div class="note">🔐 <b>Importante:</b> la App de Canje y el Admin son de uso interno de Buffalo Wings. El escaneo de QR requiere conexión segura (HTTPS) y permiso de cámara.</div>
+  </div>
+
+  <!-- 5. INSTRUCTIVO DE PIN DE CAJERO -->
+  <div class="section">
+    <h2><span class="num">5</span> INSTRUCTIVO DE CAJA · PIN</h2>
+    <p class="lead">Guía rápida para que el personal de caja valide un canje paso a paso. 🦬</p>
+
+    <div class="steps">
+      <div class="step"><span class="sn"></span><div class="stx"><b>Abrí la App de Canje</b> en la tablet o celular de caja: <b>bwbros.netlify.app/canje.html</b></div></div>
+      <div class="step"><span class="sn"></span><div class="stx"><b>Tocá "📷 ESCANEAR QR DE CANJE"</b> y permití el acceso a la cámara la primera vez.</div></div>
+      <div class="step"><span class="sn"></span><div class="stx"><b>Apuntá al QR del cliente</b> (en su teléfono). El sistema lee y verifica el ticket automáticamente.</div></div>
+      <div class="step"><span class="sn"></span><div class="stx"><b>Revisá el estado del ticket</b> (ver tabla de colores abajo) y los datos: puntos, equipo y premios.</div></div>
+      <div class="step"><span class="sn"></span><div class="stx"><b>Ingresá tu PIN de cajero</b> y tocá <b>"✓ MARCAR COMO CANJEADO"</b>. ¡Listo! Entregá el beneficio.</div></div>
+    </div>
+
+    <div class="pin-visual">
+      <span class="lbl">PIN de cajero</span>
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#7B1A1A;letter-spacing:1px;margin:26px 0 4px">¿QUÉ SIGNIFICA CADA COLOR?</h3>
+    <div class="statebox">
+      <div class="state ok"><span class="badge">✅ VERIFICADO</span><div>Ticket <b>válido</b>. Ingresá tu PIN y marcá el canje. Entregá el premio.</div></div>
+      <div class="state warn"><span class="badge">⚠️ YA CANJEADO</span><div>Este ticket <b>ya se usó antes</b>. <b>No entregar</b> de nuevo el beneficio.</div></div>
+      <div class="state bad"><span class="badge">⚠️ NO VERIFICADO</span><div>Los datos vienen solo del QR y <b>no se confirmaron en el sistema</b>. <b>No marcar como canjeado.</b></div></div>
+    </div>
+
+    <div class="note">🔑 <b>Sobre el PIN:</b> es <b>personal de cada cajero/sucursal</b> y lo entrega el administrador. <b>No lo compartas</b> ni lo anotes a la vista. Si el sistema dice <b>"PIN incorrecto"</b> o <b>"PIN rechazado"</b>, verificá el número y volvé a intentar; si persiste, contactá al administrador.</div>
+
+    <ul class="feat" style="margin-top:18px">
+      <li>🔁 <b>¿Otro cliente?</b> Tocá <b>"📷 ESCANEAR OTRO QR"</b> para validar el siguiente sin recargar.</li>
+      <li>🚫 <b>Nunca canjees</b> un ticket en estado amarillo (ya canjeado) o rojo (no verificado).</li>
+      <li>📶 <b>Sin internet</b> el ticket no se puede verificar: esperá a tener conexión antes de marcar el canje.</li>
+      <li>🙋 <b>Ante cualquier duda</b>, consultá al administrador de la sucursal antes de entregar el premio.</li>
+    </ul>
+  </div>
+
+  <!-- 6. SOPORTE OGILVY -->
+  <div class="ogilvy">
+    <h2><span class="num" style="background:#FF6B00">6</span> ACOMPAÑAMIENTO DE OGILVY</h2>
+    <p class="lead">En Ogilvy El Salvador acompañamos a Buffalo Wings en todo el ciclo de vida del juego.</p>
+    <ul class="feat">
+      <li>⚙️ <b>Soporte del Panel Admin:</b> configuración, monitoreo y reportes de la campaña.</li>
+      <li>🛠️ <b>Modificaciones al juego:</b> ajustes de textos, frases, premios, niveles y arte.</li>
+      <li>🔄 <b>Actualizaciones:</b> mejoras y nuevas funciones a lo largo de la promoción.</li>
+      <li>🤝 <b>Asesoría:</b> recomendaciones para potenciar el alcance en redes sociales.</li>
+    </ul>
+    <div class="ogilvy-logo-box">
+      <img src="https://ogilvy.com.sv/wp-content/uploads/2024/05/ogilvy-sv.png" alt="Ogilvy El Salvador" onerror="this.parentElement.innerHTML='&lt;b style=\'color:#c00;font-size:24px\'&gt;OGILVY&lt;/b&gt;&lt;br&gt;&lt;span style=\'color:#333;font-size:12px;letter-spacing:2px\'&gt;EL SALVADOR&lt;/span&gt;'">
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="big">PEDÍ · SOCÁ · GANÁ 🦬</div>
+    <div>Socazone Buffalo Bros · Mundial 2026 · Buffalo Wings®</div>
+    <div style="margin-top:6px;color:rgba(255,200,140,.7)">Desarrollado y gestionado con el apoyo de Ogilvy El Salvador</div>
+  </div>
+
+</div>
+
+</body></html>
