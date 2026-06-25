@@ -1052,15 +1052,12 @@ const bufEgg=document.getElementById('buffaloEgg');
 if(bufEgg){
   bufEgg.innerHTML='<img src="'+BUFFALO_ICON_URL+'" style="width:46px;height:46px;pointer-events:none">';
   let bufC=0,bufT;
-  bufEgg.addEventListener('touchstart',ev=>{ev.stopPropagation();ev.preventDefault();},{passive:false,capture:true});
-bufEgg.addEventListener('touchend',ev=>{ev.stopPropagation();ev.preventDefault();bufEggTap();},{passive:false,capture:true});
-function bufEggTap(){
-    ev.stopPropagation();ev.preventDefault();
+  function bufEggTap(){
     bufC++;
     bufEgg.style.transform='scale(1.25) rotate('+(bufC*18)+'deg)';
-    setTimeout(()=>bufEgg.style.transform='',180);
+    setTimeout(()=>{bufEgg.style.transform='';},180);
     A.init();A.resume();A.coin();
-    clearTimeout(bufT);bufT=setTimeout(()=>bufC=0,2500);
+    clearTimeout(bufT);bufT=setTimeout(()=>{bufC=0;},2500);
     if(bufC>=3 && bufC<7){
       const hint=document.createElement('div');
       hint.style.cssText='position:fixed;top:90px;right:18px;background:rgba(0,0,0,.85);color:#FF6B00;padding:6px 12px;border-radius:8px;font-family:Oswald;font-size:11px;letter-spacing:1px;z-index:9999;border:1px solid #FF6B00';
@@ -1075,11 +1072,14 @@ function bufEggTap(){
       m.style.cssText='position:fixed;top:25%;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7B1A1A,#FF6B00,#7B1A1A);color:#fff;padding:24px 36px;border-radius:18px;font-family:Bebas Neue,sans-serif;font-size:28px;letter-spacing:4px;z-index:99999;text-align:center;box-shadow:0 0 80px rgba(255,107,0,.9);border:3px solid #fff;animation:fmPop .5s cubic-bezier(.2,1.2,.4,1) both';
       m.innerHTML='🦬 ¡MODO BÚFALO ACTIVADO!<br><span style="font-size:14px;letter-spacing:2px;color:#ffd700">+150 monedas · escudo doble · ínsula 75%</span>';
       document.body.appendChild(m);
-      setTimeout(()=>m.style.opacity='0',3500);
+      setTimeout(()=>{m.style.opacity='0';},3500);
       setTimeout(()=>m.remove(),4000);
     }
-  },true);
-};
+  }
+  bufEgg.addEventListener('touchstart',function(ev){ev.stopPropagation();ev.preventDefault();},{passive:false,capture:true});
+  bufEgg.addEventListener('touchend',function(ev){ev.stopPropagation();ev.preventDefault();bufEggTap();},{passive:false,capture:true});
+  bufEgg.addEventListener('click',function(ev){ev.stopPropagation();ev.preventDefault();bufEggTap();},true);
+}
 setupIntroIcons(); resizeGame();animateIntro();gameLoop();
 </script>
 </body></html>
