@@ -584,7 +584,7 @@ let fireModeActive=false,fireModeTimer=0,fireParticles=[];
 let sportsBoxActive=false,sportsBoxTimer=0;
 let eventStats={poste:0, roja:0, penal:0, empate:0, total:0};
 let hofPlaqueTimer=0;
-viewport-fit=coverlet comboCount=0,comboTimer=0;
+let bossIntroPlayed=false;let comboCount=0,comboTimer=0;
 
 function getLB(){try{return JSON.parse(localStorage.getItem('socaLB')||'[]');}catch(e){return[];}}
 function saveLB(){const lb=getLB();lb.push({n:SEL.name,team:SEL.name,f:SEL.flag,g:SEL_GENDER||'M',s:score,c:coinCount,l:levelNum,ev:eventStats,d:Date.now()});lb.sort((a,b)=>b.s-a.s);localStorage.setItem('socaLB',JSON.stringify(lb.slice(0,20)));}
