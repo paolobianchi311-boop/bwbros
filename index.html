@@ -248,11 +248,11 @@ body.mobileUI #btnJugar{padding:clamp(12px,2.6vw,16px) 0}
 body.mobileUI #btnLB{width:100%}
 @media (min-width:560px){ body.mobileUI .char-card{flex:1 1 calc(33.33% - 12px)} }
 @media (min-width:820px){ body.mobileUI .char-card{flex:1 1 calc(25% - 14px)} }
-.portraitInfo{display:none;position:fixed;left:0;right:0;z-index:900;pointer-events:none;text-align:center;padding:0 12px}
-body.portraitMode .portraitInfo{display:block}
-body:has(#rotateOverlay.show) .portraitInfo{display:none}
-.portraitInfo.top{top:calc(50% - 38vh)}
-.portraitInfo.bot{bottom:calc(34vh + 12px)}
+.portraitInfo{display:none !important;position:fixed;left:0;right:0;z-index:900;pointer-events:none;text-align:center;padding:0 12px}
+@media (orientation:portrait) and (max-width:900px){body.portraitMode .portraitInfo{display:block !important}}
+body:has(#rotateOverlay.show) .portraitInfo{display:none !important}
+.portraitInfo.top{top:max(60px,calc(50% - 36vh))}
+.portraitInfo.bot{bottom:max(60px,calc(32vh + 12px))}
 .pi-card{display:inline-block;background:linear-gradient(135deg,rgba(10,0,0,.9),rgba(40,10,0,.85));border:1.5px solid rgba(255,107,0,.45);border-radius:11px;padding:8px 16px;color:#FF6B00;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;backdrop-filter:blur(4px);box-shadow:0 4px 16px rgba(0,0,0,.5);pointer-events:all}
 .pi-card.tip{color:rgba(255,210,130,.9);font-family:Oswald;font-size:11px;letter-spacing:1.5px;font-weight:600}
 .pi-card .pi-icon{vertical-align:middle;margin-right:6px;font-size:18px}
@@ -333,8 +333,8 @@ body:has(#rotateOverlay.show) .portraitInfo{display:none}
 
 </div>
 
-<div id="portraitInfo" class="top"><div class="pi-card"><span class="pi-icon">🦬</span>SOCAZONE BW BROS</div></div>
-<div id="portraitInfo" class="bot"><div class="pi-card tip" id="piTip">💡 Mantené SALTAR para saltos más altos</div></div>
+<div class="portraitInfo top"><div class="pi-card"><span class="pi-icon">🦬</span>SOCAZONE BW BROS</div></div>
+<div class="portraitInfo bot"><div class="pi-card tip" id="piTip">💡 Mantené SALTAR para saltos más altos</div></div>
 <div id="touchCtrl">
   <div id="tLeft" class="t-btn"><span class="bico">◀</span><span class="blbl">IZQ</span></div>
   <div id="tRight" class="t-btn"><span class="bico">▶</span><span class="blbl">DER</span></div>
