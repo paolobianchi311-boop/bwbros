@@ -64,6 +64,13 @@ body{background:#0a0000;width:100vw;height:100vh;height:100dvh;font-family:'Oswa
 .gender-btn{background:rgba(255,107,0,.08);border:1.5px solid rgba(255,107,0,.28);color:rgba(255,255,255,.6);font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:1px;padding:8px 16px;border-radius:6px;cursor:pointer;transition:all .2s}
 .gender-btn:hover{background:rgba(255,107,0,.12);border-color:rgba(255,107,0,.48)}
 .gender-btn.active{background:rgba(255,107,0,.2);border-color:#FF6B00;color:#FF6B00;box-shadow:0 0 12px rgba(255,107,0,.22)}
+.custom-row{display:flex;align-items:center;gap:10px;justify-content:center;margin:6px 0;padding:6px 0}
+.custom-row .gender-lbl{min-width:42px;text-align:right}
+.swatch-group{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.swatch{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.2);cursor:pointer;padding:0;transition:all .15s;box-shadow:0 2px 4px rgba(0,0,0,.4)}
+.swatch:hover{transform:scale(1.15);border-color:rgba(255,107,0,.6)}
+.swatch.active{border-color:#FF6B00;box-shadow:0 0 10px rgba(255,107,0,.7),0 2px 4px rgba(0,0,0,.4);transform:scale(1.12)}
+body.mobileUI .swatch{width:clamp(22px,5vw,28px);height:clamp(22px,5vw,28px)}
 .sel-footer{display:flex;align-items:center;gap:16px;padding:12px 20px;border-top:1px solid rgba(255,107,0,.16);background:rgba(255,107,0,.04)}
 .play-btn{flex:1;background:linear-gradient(135deg,#FF6B00,#c84d00);color:#fff;border:none;padding:16px 0;font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:5px;cursor:pointer;border-radius:10px;transition:all .2s;box-shadow:0 6px 16px rgba(255,107,0,.4)}
 .play-btn:hover{transform:translateY(-2px)}
@@ -306,6 +313,27 @@ body:has(#rotateOverlay.show) .portraitInfo{display:none !important}
       <span class="gender-lbl">JUGADOR/A:</span>
       <button class="gender-btn active" id="genM">♂ HOMBRE</button>
       <button class="gender-btn" id="genF">♀ MUJER</button>
+    </div>
+    <div class="custom-row">
+      <span class="gender-lbl">PIEL:</span>
+      <div class="swatch-group" id="skinSwatch">
+        <button class="swatch active" data-skin="" style="background:linear-gradient(135deg,#c8a07a,#a8805a)"></button>
+        <button class="swatch" data-skin="#ffd9d0" style="background:#ffd9d0"></button>
+        <button class="swatch" data-skin="#d4a574" style="background:#d4a574"></button>
+        <button class="swatch" data-skin="#b07848" style="background:#b07848"></button>
+        <button class="swatch" data-skin="#6b4226" style="background:#6b4226"></button>
+        <button class="swatch" data-skin="#3d2412" style="background:#3d2412"></button>
+      </div>
+    </div>
+    <div class="custom-row">
+      <span class="gender-lbl">PELO:</span>
+      <div class="swatch-group" id="hairSwatch">
+        <button class="swatch active" data-hair="#2a1810" style="background:#2a1810"></button>
+        <button class="swatch" data-hair="#6b3410" style="background:#6b3410"></button>
+        <button class="swatch" data-hair="#c9a35a" style="background:#c9a35a"></button>
+        <button class="swatch" data-hair="#a83820" style="background:#a83820"></button>
+        <button class="swatch" data-hair="#d8d8d8" style="background:#d8d8d8"></button>
+      </div>
     </div>
   </div>
   <div class="sel-footer">
@@ -732,7 +760,7 @@ takeDamage(){
 die(){if(this.dead)return;this.dead=true;this.deadVy=-9;A.death();addShake(8);setTimeout(()=>{lives--;document.getElementById('sLives').textContent='❤️'.repeat(Math.max(0,lives));if(lives<=0){STATE='over';A.stopMusic();A.gameOverMusic();if(!scoreSaved){scoreSaved=true;saveLB();}fetchGlobalLB();}else respawn();},2000);},
 draw(){if(this.dead){_dc(this.x-camX,this.y,this.state,true,false);return;}if(this.invT>0&&Math.floor(this.invT/5)%2)return;const sx=this.x-camX;X.save();X.translate(sx,this.y);X.scale(this.facing*this.scX,this.scY);X.translate(-sx,-this.y);_dc(sx,this.y,this.state,false,this.socaT>0||insulaMaxActive);X.restore();if(this.shield){X.strokeStyle='rgba(52,152,219,.8)';X.lineWidth=4;X.beginPath();X.arc(sx, this.y-this.fh/2, this.fh*.7, 0, Math.PI*2);X.stroke();X.fillStyle='rgba(52,152,219,.18)';X.fill();}}};
 
-function _dc(sx,sy,state,dead,soca){const ch=SEL,pw=state==='super'?36:28,ph=state==='super'?52:44;const cx=sx,feet=sy,head=feet-ph,lg=dead?0:Math.sin(P.run*.26)*10,ay=dead?0:Math.sin(P.run*.26)*5;
+function _dc(sx,sy,state,dead,soca){const ch={...SEL,sk:SEL_SKIN||SEL.sk,hr:SEL_HAIR||SEL.hr},pw=state==='super'?36:28,ph=state==='super'?52:44;const cx=sx,feet=sy,head=feet-ph,lg=dead?0:Math.sin(P.run*.26)*10,ay=dead?0:Math.sin(P.run*.26)*5;
 X.fillStyle='rgba(0,0,0,.22)';X.beginPath();X.ellipse(cx,feet+3,pw/2,4,0,0,Math.PI*2);X.fill();
 const lg1=X.createLinearGradient(0,feet-ph*.42,0,feet);lg1.addColorStop(0,ch.sh);lg1.addColorStop(1,shade(ch.sh,-30));X.fillStyle=lg1;
 X.beginPath();X.roundRect(cx-pw*.34,feet-ph*.42,pw*.32,ph*.4+lg,5);X.fill();
@@ -1008,6 +1036,21 @@ document.getElementById('btnJugar').addEventListener('click',goToGame);
 const genM=document.getElementById('genM'),genF=document.getElementById('genF');
 genM.addEventListener('click',()=>{SEL_GENDER='M';genM.classList.add('active');genF.classList.remove('active');});
 genF.addEventListener('click',()=>{SEL_GENDER='F';genF.classList.add('active');genM.classList.remove('active');});
+let SEL_SKIN='',SEL_HAIR='';
+document.querySelectorAll('#skinSwatch .swatch').forEach(b=>{
+  b.addEventListener('click',()=>{
+    SEL_SKIN=b.dataset.skin||'';
+    document.querySelectorAll('#skinSwatch .swatch').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+  });
+});
+document.querySelectorAll('#hairSwatch .swatch').forEach(b=>{
+  b.addEventListener('click',()=>{
+    SEL_HAIR=b.dataset.hair||'';
+    document.querySelectorAll('#hairSwatch .swatch').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+  });
+});
 
 document.getElementById('btnBackIntro').addEventListener('click',goToIntro);
 document.querySelector('.hud-brand').addEventListener('click',()=>{if(document.getElementById('gameWrap').style.display==='block')goToSelect();});
@@ -1032,7 +1075,7 @@ document.getElementById('lbClose').addEventListener('click',()=>document.getElem
 document.getElementById('lbClear').addEventListener('click',()=>{globalLB=null;const btn=document.getElementById('lbClear');btn.textContent='⏳ ACTUALIZANDO…';btn.disabled=true;renderLB().then(()=>{btn.textContent='🔄 ACTUALIZAR RANKING';btn.disabled=false;});});
 
 const PRO_TIPS=['💡 Mantené ESPACIO para saltos más altos','🔥 Aplastá 3+ enemigos seguidos = COMBO x3','🧠 Llená la ÍNSULA para SOCAZÓN MÁXIMA (x2 pts)','🌶️ Salsa 911 mata enemigos al tocarlos','🧤 El Guante te da un escudo extra','📦 Sports Box = x3 puntos por 15 segundos','⚽ Bloques ❓ pueden dar PREMIO EVENTO (+200-500 pts)','👁️ Jefe final: saltale 8 veces en la cabeza','🥇 Picante CF arranca con 30% de Ínsula','🛡️ Club Chunks tiene 1 vida extra'];setInterval(()=>{const el=document.getElementById('proTip');if(el)el.textContent=PRO_TIPS[Math.floor(Math.random()*PRO_TIPS.length)];},4000);function buildSelect(){const grid=document.getElementById('charGrid');if(grid.children.length)return;CHARS.forEach((ch,i)=>{const card=document.createElement('div');card.className='char-card'+(i===0?' selected':'');card.id='card_'+ch.id;let pH='';ch.pips.forEach(p=>{pH+='<div class="pips"><label>'+p[1]+'</label>';for(let k=0;k<5;k++)pH+='<div class="pip" style="background:'+(k<p[0]?'#FF6B00':'rgba(255,255,255,.1)')+'"></div>';pH+='</div>';});card.innerHTML='<div class="chk">✓</div><canvas id="prev_'+ch.id+'" width="180" height="150" style="width:90px;height:75px"></canvas>'+(TEAM_ICONS[ch.name]?'<img class="c-flag-img" src="'+TEAM_ICONS[ch.name]+'" alt="">':'<span class="c-flag">'+ch.flag+'</span>')+'<span class="c-name">'+ch.name+'</span><span class="c-stat">'+ch.stat+'</span><span class="c-desc">'+(ch.desc||'')+'</span>'+pH;card.addEventListener('click',()=>{SEL=ch;document.querySelectorAll('.char-card').forEach(c=>c.classList.remove('selected'));card.classList.add('selected');});grid.appendChild(card);const cv=document.getElementById('prev_'+ch.id);let t=Math.random()*100;setInterval(()=>{if(cv)_pd(cv,ch,t++);},50);});resizeGame();}
-function _pd(cv,ch,t){const c=cv.getContext('2d'),S=cv.width/74;c.setTransform(S,0,0,S,0,0);const cx=37,bob=Math.sin(t*.06)*2.5,y=4+bob,x=cx-15;c.clearRect(0,0,74,62);if(document.getElementById('card_'+ch.id)?.classList.contains('selected')){const g=c.createRadialGradient(cx,30,0,cx,30,36);g.addColorStop(0,'rgba(255,107,0,.12)');g.addColorStop(1,'transparent');c.fillStyle=g;c.fillRect(0,0,74,62);}const lg=Math.sin(t*.18)*6,ay=Math.sin(t*.18)*3;c.fillStyle='rgba(0,0,0,.2)';c.beginPath();c.ellipse(cx,y+52,12,4,0,0,Math.PI*2);c.fill();c.fillStyle=ch.sh;c.beginPath();c.roundRect(x+4,y+27,8,15+lg,2);c.fill();c.beginPath();c.roundRect(x+13,y+27,8,15-lg,2);c.fill();c.fillStyle='#ecf0f1';c.fillRect(x+2,y+41+lg,12,4);c.fillRect(x+11,y+41-lg,12,4);const jg=c.createLinearGradient(0,y+12,0,y+29);jg.addColorStop(0,shade(ch.j,18));jg.addColorStop(1,shade(ch.j,-22));c.fillStyle=jg;c.beginPath();c.roundRect(x+2,y+12,25,17,3);c.fill();c.fillStyle=ch.st;c.font='bold 8px Oswald,Arial';c.textAlign='center';c.fillText('10',cx,y+23);c.lineCap='round';[[-1,ay],[1,-ay]].forEach(([s,o])=>{const sX=cx+s*11,sY=y+15,eX=cx+s*16,eY=y+21+o,hX=cx+s*13,hY=y+27+o;c.strokeStyle=ch.j;c.lineWidth=5;c.beginPath();c.moveTo(sX,sY);c.lineTo(eX,eY);c.stroke();c.strokeStyle=ch.sk;c.lineWidth=4;c.beginPath();c.moveTo(eX,eY);c.lineTo(hX,hY);c.stroke();c.fillStyle=ch.sk;c.beginPath();c.arc(hX,hY,3,0,Math.PI*2);c.fill();});c.fillStyle=ch.sk;c.beginPath();c.arc(cx,y+6,9,0,Math.PI*2);c.fill();c.fillStyle=ch.hr;c.beginPath();c.arc(cx,y+4,9,Math.PI,0);c.fill();if(SEL_GENDER==='F'){c.fillStyle=ch.hr;c.beginPath();c.ellipse(cx-8,y+9,3,6,.2,0,Math.PI*2);c.fill();c.fillStyle=ch.st;c.beginPath();c.arc(cx-7,y+2,1.6,0,Math.PI*2);c.fill();}c.fillStyle='#fff';c.beginPath();c.arc(cx-3,y+5,2,0,Math.PI*2);c.fill();c.beginPath();c.arc(cx+3,y+5,2,0,Math.PI*2);c.fill();c.fillStyle='#000';c.beginPath();c.arc(cx-3,y+5,1,0,Math.PI*2);c.fill();c.beginPath();c.arc(cx+3,y+5,1,0,Math.PI*2);c.fill();}
+function _pd(cv,chR,t){const ch={...chR,sk:SEL_SKIN||chR.sk,hr:SEL_HAIR||chR.hr};const c=cv.getContext('2d'),S=cv.width/74;c.setTransform(S,0,0,S,0,0);const cx=37,bob=Math.sin(t*.06)*2.5,y=4+bob,x=cx-15;c.clearRect(0,0,74,62);if(document.getElementById('card_'+ch.id)?.classList.contains('selected')){const g=c.createRadialGradient(cx,30,0,cx,30,36);g.addColorStop(0,'rgba(255,107,0,.12)');g.addColorStop(1,'transparent');c.fillStyle=g;c.fillRect(0,0,74,62);}const lg=Math.sin(t*.18)*6,ay=Math.sin(t*.18)*3;c.fillStyle='rgba(0,0,0,.2)';c.beginPath();c.ellipse(cx,y+52,12,4,0,0,Math.PI*2);c.fill();c.fillStyle=ch.sh;c.beginPath();c.roundRect(x+4,y+27,8,15+lg,2);c.fill();c.beginPath();c.roundRect(x+13,y+27,8,15-lg,2);c.fill();c.fillStyle='#ecf0f1';c.fillRect(x+2,y+41+lg,12,4);c.fillRect(x+11,y+41-lg,12,4);const jg=c.createLinearGradient(0,y+12,0,y+29);jg.addColorStop(0,shade(ch.j,18));jg.addColorStop(1,shade(ch.j,-22));c.fillStyle=jg;c.beginPath();c.roundRect(x+2,y+12,25,17,3);c.fill();c.fillStyle=ch.st;c.font='bold 8px Oswald,Arial';c.textAlign='center';c.fillText('10',cx,y+23);c.lineCap='round';[[-1,ay],[1,-ay]].forEach(([s,o])=>{const sX=cx+s*11,sY=y+15,eX=cx+s*16,eY=y+21+o,hX=cx+s*13,hY=y+27+o;c.strokeStyle=ch.j;c.lineWidth=5;c.beginPath();c.moveTo(sX,sY);c.lineTo(eX,eY);c.stroke();c.strokeStyle=ch.sk;c.lineWidth=4;c.beginPath();c.moveTo(eX,eY);c.lineTo(hX,hY);c.stroke();c.fillStyle=ch.sk;c.beginPath();c.arc(hX,hY,3,0,Math.PI*2);c.fill();});c.fillStyle=ch.sk;c.beginPath();c.arc(cx,y+6,9,0,Math.PI*2);c.fill();c.fillStyle=ch.hr;c.beginPath();c.arc(cx,y+4,9,Math.PI,0);c.fill();if(SEL_GENDER==='F'){c.fillStyle=ch.hr;c.beginPath();c.ellipse(cx-8,y+9,3,6,.2,0,Math.PI*2);c.fill();c.fillStyle=ch.st;c.beginPath();c.arc(cx-7,y+2,1.6,0,Math.PI*2);c.fill();}c.fillStyle='#fff';c.beginPath();c.arc(cx-3,y+5,2,0,Math.PI*2);c.fill();c.beginPath();c.arc(cx+3,y+5,2,0,Math.PI*2);c.fill();c.fillStyle='#000';c.beginPath();c.arc(cx-3,y+5,1,0,Math.PI*2);c.fill();c.beginPath();c.arc(cx+3,y+5,1,0,Math.PI*2);c.fill();}
 
 function setupIntroIcons(){
   const R=2,S=42;
